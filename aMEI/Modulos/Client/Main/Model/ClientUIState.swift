@@ -8,8 +8,9 @@
 import Foundation
 
 enum ClientUIState: Equatable{
-    case none
+    case none([ClientRawData])
     case loading
     case searching
+    case goToCreateClient
     case error(String)
 }

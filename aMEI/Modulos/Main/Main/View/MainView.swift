@@ -10,7 +10,7 @@ import SwiftUI
 struct MainView: View {
     @ObservedObject var viewModel: MainViewModel
     @State var action: Int? = 0
-    @State var selection = 0
+    @State private var selection: Int = 0
     
     var body: some View {
         Group{
@@ -26,55 +26,56 @@ struct MainView: View {
                     .tabItem{
                         Image(systemName: "person.3.fill").imageScale(.small)
                         Text("Clientes")
-                    }.tag(0)
+                    }.tag(1)
                 
                 viewModel.createProduct()
                     .tabItem{
                         Image(systemName: "list.clipboard.fill").imageScale(.small)
                         Text("Produtos")
-                    }.tag(0)
+                    }.tag(2)
                 
                 viewModel.createPremium()
                     .tabItem{
                         Image(systemName: "brazilianrealsign.circle.fill").imageScale(.small)
                         Text("Contabilidade")
-                    }.tag(0)
+                    }.tag(3)
 
                 viewModel.createPremium()
                     .tabItem{
                         Image(systemName: "list.bullet.circle.fill").imageScale(.small)
                         Text("RH")
-                    }.tag(0)
+                    }.tag(4)
                 
                 viewModel.createPremium()
                     .tabItem{
                         Image(systemName: "pin.square.fill").imageScale(.small)
                         Text("Registro")
-                    }.tag(0)
+                    }.tag(5)
                 
-                viewModel.createPremium()
+                viewModel.createFAQ()
                     .tabItem{
                         Image(systemName: "questionmark.circle.fill").imageScale(.small)
                         Text("FAQ")
-                    }.tag(0)
+                    }.tag(6)
                 
                 viewModel.createContactUs()
                     .tabItem{
                         Image(systemName: "mail.fill").imageScale(.small)
                         Text("Fale conosco")
-                    }.tag(0)
+                    }.tag(7)
                 
                 viewModel.createAbout()
                     .tabItem{
                         Image(systemName: "exclamationmark.circle").imageScale(.small)
                         Text("Sobre")
-                    }.tag(0)
+                    }.tag(8)
                 
-                viewModel.logout()
+                chose
                     .tabItem{
-                        Image(systemName: "rectangle.portrait.and.arrow.forward.fill").imageScale(.small)
-                        Text("Logout")
-                    }.tag(0)
+                        Button(action: {viewModel.logout()}, label: {Image(systemName: "rectangle.portrait.and.arrow.forward.fill").imageScale(.small)
+                            Text("Logout")})
+                    }.tag(9)
+                    
             }
             .background(Color.white)
             .accentColor(Color.cyan)
@@ -84,6 +85,23 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(viewModel: MainViewModel())
+        MainView(viewModel: MainViewModel(interactor: MainInteractor()))
+    }
+}
+
+
+extension MainView{
+    
+    var chose: some View{
+        
+        ZStack{
+            Text("")
+                .alert(isPresented: .constant(true)){
+                    Alert(title: Text("aMEI"),
+                          message: Text("Deseja sair?"),
+                          primaryButton: .default(Text("Sim")){viewModel.logout()},
+                          secondaryButton: .default(Text("Não")){})
+                }
+        }
     }
 }

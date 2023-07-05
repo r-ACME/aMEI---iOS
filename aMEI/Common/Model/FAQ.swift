@@ -7,6 +7,12 @@
 
 import Foundation
 
+struct FAQ{
+    let id: Int
+    let question: String
+    let answer: String
+}
+
 
 
 class FAQInsert{

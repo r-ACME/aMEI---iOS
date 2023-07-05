@@ -16,12 +16,12 @@ enum MainViewRouter{
     }
     
     static func makeScheduleView() -> some View{
-        let viewModel = ScheduleViewModel()
+        let viewModel = ScheduleViewModel(interactor: ScheduleInteractor())
         return ScheduleView(viewModel: viewModel)
     }
     
     static func makeClientView() -> some View{
-        let viewModel = ClientViewModel()
+        let viewModel = ClientViewModel(interactor: ClientInteractor())
         return ClientView(viewModel: viewModel)
     }
     
@@ -43,6 +43,11 @@ enum MainViewRouter{
     static func makeContactUsView() -> some View{
         let viewModel = ContactUsViewModel()
         return ContactUsView(viewModel: viewModel)
+    }
+    
+    static func makeFAQView() -> some View{
+        let viewModel = FAQViewModel(interactor: FAQInteractor())
+        return FAQView(viewModel: viewModel)
     }
 
 }

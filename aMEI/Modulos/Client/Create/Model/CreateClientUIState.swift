@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+enum CreateClientUIState: Equatable{
+    case none
+    case loading
+    case cepfound
+    case success
+    case error(String)
+}

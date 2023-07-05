@@ -7,5 +7,8 @@
 
 import Foundation
 
-import Combine
-import SQLite3
+enum FAQUIState{
+    case none([FAQ])
+    case loading
+    case error(String)
+}

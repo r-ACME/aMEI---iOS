@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct UserAuth: Codable{
+    
+    var cnpj: String
+    var password: String
+    
+}

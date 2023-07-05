@@ -17,7 +17,7 @@ enum SplashViewRouter{
     }
     
     static func makeMainView() -> some View{
-        let viewModel = MainViewModel()
+        let viewModel = MainViewModel(interactor: MainInteractor())
         return MainView(viewModel: viewModel)
     }
 }

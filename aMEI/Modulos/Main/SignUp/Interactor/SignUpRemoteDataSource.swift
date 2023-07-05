@@ -54,6 +54,11 @@ class SignUpRemoteDataSource{
                             let response = try? decoder.decode(CNPJErrorResponse.self, from: data)
                             promise(.failure(CNPJErrorResponse(status: response?.status ?? 404, titulo: response?.titulo ?? "", detalhes: response?.detalhes ?? "", validacao: response?.validacao ?? "")))
                         }
+                        if error == .toManny{
+                            let decoder = JSONDecoder()
+                            let response = try? decoder.decode(CNPJErrorResponse.self, from: data)
+                            promise(.failure(CNPJErrorResponse(status: response?.status ?? 429, titulo: response?.titulo ?? "Muitas pesquisas", detalhes: response?.detalhes ?? "Aguarde um momento e tente novamente", validacao: response?.validacao ?? "")))
+                        }
                     }
                     break
                 case .success(let data):

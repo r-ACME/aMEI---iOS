@@ -7,12 +7,26 @@
 
 import Foundation
 
-enum Alert: String, CaseIterable, Identifiable{
-    case onehour = "Uma hora"
-    case twelve = "Doze horas"
-    case oneday = "Um dia"
-    case twodays = "Dois dias"
-    case oneweek = "Uma semana"
+enum AlertSchedule: String, CaseIterable, Identifiable{
+    case none = "nunca"
+    case onehour = "uma hora"
+    case twelve = "doze horas"
+    case oneday = "um dia"
+    case twodays = "dois dias"
+    case oneweek = "uma semana"
+    
+    var id: String {
+        self.rawValue
+    }
+    
+    var index: Self.AllCases.Index{
+        return Self.allCases.firstIndex{ self == $0} ?? 0
+    }
+}
+
+enum AlertFrequency: String, CaseIterable, Identifiable{
+    case weekly = "Semanal"
+    case monthly = "Mensal"
     
     var id: String {
         self.rawValue

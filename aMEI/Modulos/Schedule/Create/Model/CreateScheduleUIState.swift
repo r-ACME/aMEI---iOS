@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+enum CreateScheduleUIState: Equatable{
+    case none
+    case loading
+    case success
+    case error(String)
+}

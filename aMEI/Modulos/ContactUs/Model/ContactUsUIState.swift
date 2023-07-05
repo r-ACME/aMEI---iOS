@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+enum ContactUsUIState: Equatable{
+    case none
+    case loading
+    case send
+    case error(String)
+}

@@ -6,3 +6,16 @@
 //
 
 import Foundation
+import Combine
+
+class MainInteractor{
+
+    private let local: LocalDataSource = .shared
+
+    
+    func logout(){
+        local.removeUserAuth()
+    }
+    
+    
+}

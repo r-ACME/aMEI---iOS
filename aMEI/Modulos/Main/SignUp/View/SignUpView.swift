@@ -88,7 +88,7 @@ extension SignUpView{
                 .navigationBarTitle("Login", displayMode: .inline)
                 .navigationBarHidden(false)
                 .navigationBarItems(leading: Button(action: {
-                    viewModel.publisher.send(false)
+                    viewModel.publisher.send(true)
                 }, label: {
                     Text("Voltar")
                 }))

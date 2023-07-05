@@ -12,7 +12,7 @@ import SwiftUI
 enum SignUpViewRouter{
     
     static func makeMainView() -> some View{
-        let viewModel = MainViewModel()
+        let viewModel = MainViewModel(interactor: MainInteractor())
         return MainView(viewModel: viewModel)
     }
 }

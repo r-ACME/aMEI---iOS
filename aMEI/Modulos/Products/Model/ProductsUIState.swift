@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+enum ProductsUIState: Equatable{
+    case none
+    case loading
+    case searching
+    case error(String)
+}

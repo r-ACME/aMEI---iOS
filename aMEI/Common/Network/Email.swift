@@ -9,9 +9,7 @@ import Foundation
 import MessageUI
 
 
-class Mail: UIViewController, MFMailComposeViewControllerDelegate {
-    
-    
+class Email: UIViewController, MFMailComposeViewControllerDelegate {
     
     func sendEmail(subject: String, body: String) {
         if MFMailComposeViewController.canSendMail() {
@@ -28,7 +26,6 @@ class Mail: UIViewController, MFMailComposeViewControllerDelegate {
         }
     }
 
-    
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
         

@@ -15,7 +15,8 @@ struct SplashView: View {
         Group{
             switch viewModel.uiState{
             case .loading:
-                chose
+                Text("Loading")
+                //chose
             case .goToLogin:
                 viewModel.loginView()
             case .goToMain:

@@ -8,12 +8,16 @@
 import Foundation
 import SwiftUI
 import Combine
+import UIKit
 
 class MainViewModel: ObservableObject{
     
     @Published var uiState: MainUIState = .loading
+    private let interactor: MainInteractor
     
-    
+    init(interactor: MainInteractor){
+        self.interactor = interactor
+    }
     
     func createAbout() -> some View{
         return MainViewRouter.makeAboutView()
@@ -39,8 +43,21 @@ class MainViewModel: ObservableObject{
         return MainViewRouter.makeContactUsView()
     }
     
-    func logout() -> some View{
-        //desvincular usuário logado
-        return MainViewRouter.makeLoginView()
+    func createFAQ() -> some View{
+        return MainViewRouter.makeFAQView()
+    }
+    
+    func logout(){
+        self.interactor.logout()
+        //self.restartApplication()
+    }
+    
+    func restartApplication() {
+        if let window = UIApplication.shared.keyWindow {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil) // Substitua "Main" pelo nome correto do storyboard
+                let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") // Substitua "LoginViewController" pelo identificador correto do seu controlador de login
+                window.rootViewController = loginViewController
+                UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: nil, completion: nil)
+            }
     }
 }

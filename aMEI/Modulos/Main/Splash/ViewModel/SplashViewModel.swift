@@ -15,6 +15,7 @@ class SplashViewModel: ObservableObject{
     @Published var uiState: SplashUIState = .loading
     
     private var cancellable: AnyCancellable?
+    private var cancellableAuth: AnyCancellable?
     private let interactor: SplashInteractor
     
     init(interactor: SplashInteractor){
@@ -22,6 +23,7 @@ class SplashViewModel: ObservableObject{
     }
     deinit{
         cancellable?.cancel()
+        cancellableAuth?.cancel()
     }
     
     func loginView() -> some View{
@@ -33,6 +35,20 @@ class SplashViewModel: ObservableObject{
     }
     
     func onAppear(){
+        
+        self.cancellableAuth = self.interactor.fetchAuth()
+            .delay(for: .seconds(3), scheduler: RunLoop.main)
+            .receive(on: DispatchQueue.main)
+            .sink{ userAuth in
+                if userAuth!.cnpj.count == 14{
+                    self.uiState = .goToMain
+                }
+                else{
+                    self.uiState = .goToLogin
+                }
+            
+            }
+        
         
         Notification.scheduleVerification(notificationId: "Schedule_id: 0") { exists in
             if exists {

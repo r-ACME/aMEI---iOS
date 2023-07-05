@@ -7,51 +7,22 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class WebService{
     
-    public static func call(path: EndPoint,
+    public static func call(cnpj: String,
                             method: Method = .get,
                             completion: @escaping (Result) -> Void){
-        
-        call(path: path.rawValue, method: method, contentType: .json, data: nil, completion: completion)
+        call(path: cnpj, method: method, contentType: .json, data: nil, completion: completion)
     }
     
-    static func call<T: Encodable>(path: EndPoint,
-                                   method: Method = .get,
-                                   body: T,
-                                   completion: @escaping(Result) -> Void){
-        
-        guard let jsonData = try? JSONEncoder().encode(body)else { return }
-        
-        call(path: path.rawValue, method: method, contentType: .json, data: jsonData,  completion: completion)
+    public static func call(cep: String,
+                            method: Method = .get,
+                            completion: @escaping (Result) -> Void){
+        call(path: cep, method: method, contentType: .json, data: nil, completion: completion)
     }
     
-    static func call<T: Encodable>(path: String,
-                                   method: Method = .get,
-                                   body: T,
-                                   completion: @escaping(Result) -> Void){
-        
-        guard let jsonData = try? JSONEncoder().encode(body)else { return }
-        
-        call(path: path, method: method, contentType: .json, data: jsonData,  completion: completion)
-    }
-    
-    static func call(path: EndPoint,
-                     method: Method = .get,
-                     params: [URLQueryItem],
-                     completion: @escaping(Result) -> Void){
-        
-        guard var urlRequest = completeUrl(path: path.rawValue) else{
-            return
-        }
-        
-        guard let absoluteUrl = urlRequest.url?.absoluteString else { return }
-        var components = URLComponents(string: absoluteUrl)
-        components?.queryItems = params
-        
-        call(path: path.rawValue, method: method, contentType: .formUrl, data: components?.query?.data(using: .utf8),  completion: completion)
-    }
     
     private static func call(path: String,
                              method: Method,
@@ -63,24 +34,12 @@ class WebService{
             return
         }
         
-        _ = LocalDataSource.shared.getUserAuth()
-            .sink{
-                userAuth in
-                if let userAuth = userAuth{
-                    urlRequest.setValue("\(userAuth.tokenType) \(userAuth.idToken)", forHTTPHeaderField: "Authorization")
-                }
-            }
-        
         //print("\(urlRequest) \n \(method.rawValue) ")
         urlRequest.httpMethod = method.rawValue
-        urlRequest.setValue("application/json", forHTTPHeaderField: "accept")
-        urlRequest.setValue(contentType.rawValue, forHTTPHeaderField: "Content-Type")
-        urlRequest.httpBody = data
         
         let task = URLSession.shared.dataTask(with: urlRequest){ data, response, error
             in
             guard let data = data, error == nil else {
-                print(error)
                 completion(.failure(.internalServerError, nil))
                 return
             }
@@ -93,8 +52,26 @@ class WebService{
                 case 401:
                     completion(.failure(.unauthorized, data))
                     break
+                case 403:
+                    completion(.failure(.accessDenied, data))
+                    break
+                case 404:
+                    completion(.failure(.notFound, data))
+                    break
+                case 429:
+                    completion(.failure(.toManny, data))
+                    break
+                case 500:
+                    completion(.failure(.internalError, data))
+                    break
                 case 200:
                     completion(.success(data))
+                    break
+                case 0, 1:
+                    completion(.success(data))
+                    break
+                case 2, 3, 4, 5, 6, 7, 8:
+                    completion(.failure(.newError, data))
                     break
                 default: break
                 }
@@ -116,6 +93,10 @@ class WebService{
         case notFound
         case unauthorized
         case internalServerError
+        case accessDenied
+        case toManny
+        case internalError
+        case newError
     }
     
     enum Result{
@@ -124,18 +105,20 @@ class WebService{
     }
     
     enum EndPoint: String{
-        case base = "https://h-apigateway.conectagov.estaleiro.serpro.gov.br"
-        case consultaCNPJ = "/api-cnpj-empresa/v2/empresa/%d"
-        case token = "/oauth2/jwt-token"
-        
+        case base = "https://receitaws.com.br/v1/cnpj/"
+        case cep = "https://brasilapi.com.br/api/cep/v1/"
     }
     
     enum ContentType: String{
         case json = "application/json"
-        case formUrl = "clientCredentials"
     }
     
     private static func completeUrl(path: String) -> URLRequest?{
+        if path.count == 8{
+            guard let url = URL(string: "\(EndPoint.cep.rawValue)\(path)")
+            else {return nil}
+            return URLRequest(url: url)
+        }
         guard let url = URL(string: "\(EndPoint.base.rawValue)\(path)")
         else {return nil}
         return URLRequest(url: url)

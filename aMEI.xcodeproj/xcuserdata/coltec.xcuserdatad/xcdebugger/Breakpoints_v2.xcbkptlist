@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "451C28C8-306D-405D-96B1-1B5EEBBBE736"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6AEF95AB-887E-42C4-A9FE-9CBAE43FC5EA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "aMEI/Common/Network/Email.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "sendEmail(subject:body:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "93C748AF-6091-4CEF-8168-00F87CCF62F2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "aMEI/Modulos/Client/Main/ClientRemoteDataSource.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "getClientData(query:db:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "93C748AF-6091-4CEF-8168-00F87CCF62F2 - 7624f17d29c3c56e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "aMEI.ClientRemoteDataSource.getClientData(query: Swift.String, db: Swift.Optional&lt;Swift.OpaquePointer&gt;) -&gt; aMEI.Person"
+                  moduleName = "aMEI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/coltec/Documents/Raphael/aMEI/aMEI/Modulos/Client/Main/ClientRemoteDataSource.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "444">
+               </Location>
+               <Location
+                  uuid = "93C748AF-6091-4CEF-8168-00F87CCF62F2 - 7624f17d29c3c56e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "aMEI.ClientRemoteDataSource.getClientData(query: Swift.String, db: Swift.Optional&lt;Swift.OpaquePointer&gt;) -&gt; aMEI.Person"
+                  moduleName = "aMEI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/coltec/Documents/Raphael/aMEI/aMEI/Modulos/Client/Main/ClientRemoteDataSource.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "436">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

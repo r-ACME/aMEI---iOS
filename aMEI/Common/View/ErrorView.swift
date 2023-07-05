@@ -12,20 +12,20 @@ struct ErrorView{
     
     func loadingView(error: String? = nil) -> some View{
         ZStack{
-            Image("logo")
-                .resizable()
-                .scaledToFit()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .padding(20)
-                .background(Color.white)
-                .ignoresSafeArea()
+//            Image("logo")
+//                .resizable()
+//                .scaledToFit()
+//                .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                .padding(20)
+//                .background(Color.white)
+//                .ignoresSafeArea()
             if let error = error {
                 Text("")
                     .alert(isPresented: .constant(true)){
                         Alert(title: Text("aMEI"),
                               message: Text(error),
                               dismissButton:
-                                .cancel(Text("Cancelar")){}
+                                .default(Text("Cancelar")){}
                         )
                     }
             }
